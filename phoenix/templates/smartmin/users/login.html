@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% load smartmin i18n %}
+
+
+{% block header %}
+<header class="navbar navbar-inverse" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="fa fa-cog"></i>
+        </button>
+        <a href="/" class="navbar-brand navbar-brand-img">
+          <img src="{% static 'img/logo.png' %}" alt="Farmguru">
+        </a>
+      </div> <!-- /.navbar-header -->
+    </div> <!-- /.container -->
+  </header>
+{% endblock %}
+{% block content %}
+
+  <div class="account-wrapper">
+
+    <div class="account-body">
+
+      <h3>Farmguru</h3>
+
+      <h5>Please sign in to get access.</h5>
+
+      <form class="form account-form" method="POST">
+        {% csrf_token %}
+          {% for field, errors in form.errors.items %}
+          {% if field == '__all__' %}
+          <div class="alert alert-danger form-errors">
+            <h3>Error</h3>
+            {{ errors }}
+          </div>
+          {% endif %}
+          {% endfor %}
+        {% for field in form %}
+        <div class="form-group {% if field.error %}has-error{% endif %}">
+          <label for="{{ field.name }}">{{ field.label }}</label>
+          <div class="input">{{ field|add_css:"form-control" }}</div>
+          {% if field.error %}
+          <span class="help-block">{{ field.error }}</span>
+          {% endif %}
+        </div>
+        {% endfor %}
+
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block btn-lg" tabindex="4">
+            Signin &nbsp; <i class="fa fa-play-circle"></i>
+          </button>
+        </div> <!-- /.form-group -->
+
+      </form>
+
+
+    </div> <!-- /.account-body -->
+
+    <div class="account-footer">
+        {% if allow_email_recovery %}
+          <div class="pull-right">
+            <small><a href="{% url 'users.user_forget' %}">Forgot Password?</a></small>
+          </div>
+        {% endif %}
+      <p>
+      Don't have an account? &nbsp;
+      <a href="{% url 'users.user_create' %}" class="">Create an Account!</a>
+      </p>
+    </div> <!-- /.account-footer -->
+
+  </div> <!-- /.account-wrapper -->
+{% endblock %}

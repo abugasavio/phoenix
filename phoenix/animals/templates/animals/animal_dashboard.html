@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row">
+
+          <div class="col-md-4 col-sm-5">
+
+            <div class="portlet">
+
+              <h4 class="portlet-title">
+                <u>{{ object }} Stats</u>
+              </h4>
+
+              <div class="portlet-body">
+
+                <table class="table keyvalue-table">
+                  <tbody>
+                    {% if object.date_of_first_service %}
+                    <tr>
+                      <td class="kv-key"><i class="fa fa-unlock kv-icon kv-icon-primary"></i> Date of First Service</td>
+                      <td class="kv-value"> {{ object.date_of_first_service }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                      <td class="kv-key"><i class="fa fa-check kv-icon kv-icon-primary"></i> Services</td>
+                      <td class="kv-value"> {{ object.number_of_services }} </td>
+                    </tr>
+                    <tr>
+                      <td class="kv-key"><i class="fa fa-check kv-icon kv-icon-primary"></i> Successful Services</td>
+                      <td class="kv-value"> {{ object.number_of_successful_services }} </td>
+                    </tr>
+                    <tr>
+                      <td class="kv-key"><i class="fa fa-times kv-icon kv-icon-primary"></i> Number of Failed Services</td>
+                      <td class="kv-value">{{ object.number_of_failed_services }} </td>
+                    </tr>
+                    {% if object.all_time_production %}
+                    <tr>
+                      <td class="kv-key"><i class="fa fa-gift kv-icon kv-icon-primary"></i> All-time milk production</td>
+                      <td class="kv-value">{{ object.all_time_production }} L</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+
+              </div> <!-- /.portlet-body -->
+
+            </div> <!-- /.portlet -->
+
+          </div> <!-- /.col -->
+
+
+          <div class="col-md-8 col-sm-7">
+            <div class="portlet">
+
+              <h4 class="portlet-title">
+                <u>Weekly Milk Production</u>
+              </h4>
+
+              <div class="portlet-body">
+
+                <div id="line-chart" class="chart-holder-400"></div>
+              </div> <!-- /.portlet-body -->
+
+            </div> <!-- /.portlet -->
+
+          </div> <!-- /.col -->
+
+        </div> <!-- /.row -->
+
+{% endblock content %}

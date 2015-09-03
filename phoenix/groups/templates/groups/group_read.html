@@ -1,0 +1,30 @@
+{% extends "smartmin/read.html" %}
+{% load smartmin %}
+{% block title %}{{ block.super }}  | {{ object }} Details {% endblock title %}
+{% block page_title %} {{ object }} Details {% endblock %}
+{% block content %}
+{{ block.super }}
+<div role="tabpanel">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation"><a href="#animals" aria-controls="animals" role="tab" data-toggle="tab">Animals</a></li>
+      <li role="presentation"><a href="#health" aria-controls="health" role="tab" data-toggle="tab">Health</a></li>
+      <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+      <li role="presentation"><a href="#documents" aria-controls="documents" role="tab" data-toggle="tab">Documents</a></li>
+      <li role="presentation"><a href="#transactions" aria-controls="transactions" role="tab" data-toggle="tab">Transactions</a></li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+      <div role="tabpanel" class="tab-pane" id="animals">{{ animals }}</div>
+      <div role="tabpanel" class="tab-pane" id="health">{{ treatment }}</div>
+      <div role="tabpanel" class="tab-pane" id="notes">{{ notes }}</div>
+      <div role="tabpanel" class="tab-pane" id="documents">{{ animal_documents }}</div>
+      <div role="tabpanel" class="tab-pane" id="transactions">{{ transactions }}</div>
+  </div>
+</div>
+{% endblock content %}
+{% block extra-script %}
+<script>
+    $('.nav-tabs a:first').tab('show')
+</script>
+{% endblock extra-script %}
