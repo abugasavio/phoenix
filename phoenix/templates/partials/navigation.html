@@ -1,0 +1,70 @@
+{%  block navigation %}
+    <div class="col-md-3">
+      <div class="text-center">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+</div>
+<div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">
+  <a href="#" class="logo hidden-sm hidden-xs">
+    <i class="icon-cloud-download"></i>
+    <span>farmguru</span>
+  </a>
+  <!--
+  <div class="search-box">
+    <input type="text" placeholder="SEARCH" class="form-control">
+  </div>
+
+  <ul class="side-menu side-menu-orange">
+    <li>
+      <a href="notifications.html">
+        <span class="badge badge-notifications pull-right alert-animated">5</span>
+        <i class="icon-flag"></i> Notifications
+      </a>
+    </li>
+  </ul>
+  -->
+  <div class="relative-w">
+    <ul class="side-menu side-menu-orange">
+      <li class='current'>
+        <a class='current' href="{% url 'dashboard' %}">
+          <i class="icon-dashboard"></i> Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'animals.animal_list' %}">
+          <span class="badge pull-right">1</span>
+          <i class="icon-list"></i> Livestock
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'groups.group_list' %}">
+          <span class="badge pull-right"></span>
+          <i class="icon-code-fork"></i> Groups
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'health.treatment_list' %}">
+          <span class="badge pull-right">24</span>
+          <i class="icon-th"></i> Treatment
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'finances.transaction_list' %}">
+          <i class="icon-calendar"></i> Transaction
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'account_logout' %}">
+          <span class="badge pull-right"></span>
+          <i class="icon-signin"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+{%  endblock %}

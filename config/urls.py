@@ -6,7 +6,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from phoenix.dashboard.views import DashboardView
-#from phoenix.apps.users.views import LoginView
+from django.views.generic import TemplateView
 
 urlpatterns = [url(r'^$', DashboardView.as_view(), name='dashboard'),
                url(r'^finances/', include('phoenix.finances.urls')),
@@ -24,6 +24,9 @@ urlpatterns = [url(r'^$', DashboardView.as_view(), name='dashboard'),
                url(r'^users/', include('phoenix.users.urls')),
                # Third party URLs
                url(r'^select2/', include('django_select2.urls')),
+
+               url(r'^mars/$', TemplateView.as_view(template_name='pages/dashboard.html'), name="home"),
+
                ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

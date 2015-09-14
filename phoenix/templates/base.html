@@ -1,97 +1,92 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
-<head>
+<html>
   {% load staticfiles i18n %}
   {% load bootstrap3 %}
   {% load django_select2_tags %}
-  <title>{% block title %} Farmguru {% endblock %}</title>
-
+<head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- Google Font: Open Sans -->
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic">
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700">
-
-  <!-- Font Awesome CSS -->
-  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-
-  <!-- App CSS -->
-  <link rel="stylesheet" href="{% static 'css/mvpready-admin-belize.css' %}">
-  <link rel="stylesheet" href="{% static 'css/mvpready-flat.css' %}">
-  <link rel="stylesheet" href="{% static 'css/farmguru.css' %}">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='{% static 'css/fullcalendar.css' %}'>
+  <link rel='stylesheet' href='{% static 'css/datatables/datatables.css' %}'>
+  <link rel='stylesheet' href='{% static 'css/datatables/bootstrap.datatables.css' %}'>
+  <link rel='stylesheet' href='{% static 'scss/chosen.css' %}'>
+  <link rel='stylesheet' href='{% static 'scss/font-awesome/font-awesome.css' %}'>
+  <link rel='stylesheet' href='{% static 'css/app.css' %}'>
   <!-- Plugin CSS -->
   {% import_django_select2_css %}
   <link rel="stylesheet" href="{% static 'css/select2-bootstrap.css' %}">
+  <link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
-
+  <link href='{% static 'assets/favicon.ico' %}' rel="shortcut icon">
+  <link href='{% static 'assets/apple-touch-icon.png' %}' rel="apple-touch-icon">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  @javascript html5shiv respond.min
   <![endif]-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-  <!-- JQuery -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-  {% block extra-style %}{% endblock %}
+  <title>{% block title %} Farmguru {% endblock %}</title>
 
 </head>
 
-<body class=" ">
-
-<div id="wrapper">
-
-  {% block header %}
-    {% include "partials/header.html" %}
-  {% endblock %}
-
-  <div class="content">
-
-    <div class="container">
-        <h2 class="">{% block page_title %}{% endblock %}</h2>
-
-        {% bootstrap_messages %}
-
-        {% block content %} {% endblock %}
-
-    </div> <!-- /.container -->
-
-  </div> <!-- .content -->
-
-</div> <!-- /#wrapper -->
-
-<footer class="footer">
-  <div class="container">
-    <p class="pull-left">Copyright &copy; 2015 farmguru.</p>
+<body>
+<div class="all-wrapper">
+<div class="row">
+    {%  block navigation %}
+        {% include 'partials/navigation.html' %}
+    {%  endblock %}
+    <div class="col-md-9">
+    <div class="content-wrapper">
+       <div class="content-inner content-inner-white">
+       <div class="page-header page-header-green">
+  <div class="header-links hidden-xs">
+    <a href="notifications.html"><i class="icon-comments"></i> User Alerts</a>
+    <a href="#"><i class="icon-cog"></i> Settings</a>
+    <a href="{% url 'account_logout' %}"><i class="icon-signout"></i> Logout</a>
   </div>
-</footer>
+  <h1><i class="icon-bar-chart"></i> {% block page_title %} {% endblock %}</h1>
+</div>
+
+          <div class="main-content">
+          <div class="widget">
+
+              <div class="widget-content-white glossed">
+              <div class="padded">
+{%  block content %}
+
+{% endblock %}
+              </div>
+                </div>
+              </div>
+          </div>
+
+          </div>
+        </div>
+    </div>
+    </div>
+</div>
+    </div>
 
 
-{# compress js #}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src='{% static 'js/jquery.sparkline.min.js' %}'></script>
+<script src='{% static 'js/bootstrap/tab.js' %}'></script>
+<script src='{% static 'js/bootstrap/dropdown.js' %}'></script>
+<script src='{% static 'js/bootstrap/collapse.js' %}'></script>
+<script src='{% static 'js/bootstrap/alert.js' %}'></script>
+<script src='{% static 'js/bootstrap/transition.js' %}'></script>
+<script src='{% static 'js/bootstrap/tooltip.js' %}'></script>
+<script src='{% static 'js/jquery.knob.js' %}'></script>
+<script src='{% static 'js/fullcalendar.min.js' %}'></script>
+<script src='{% static 'js/datatables/datatables.min.js' %}'></script>
+<script src='{% static 'js/chosen.jquery.min.js' %}'></script>
+<script src='{% static 'js/datatables/bootstrap.datatables.js' %}'></script>
+<script src='{% static 'js/raphael-min.js' %}'></script>
+<script src='{% static 'js/morris-0.4.3.min.js' %}'></script>
+<script src='{% static 'js/for_pages/color_settings.js' %}'></script>
+<script src='{% static 'js/application.js' %}'></script>
 
-<script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
-
-<!--[if lt IE 9]>
-<script src="{% static 'js/libs/excanvas.compiled.js' %}"></script>
-<![endif]-->
-
-<!-- App JS -->
-<script src="{% static 'js/mvpready-core.js' %}"></script>
-<script src="{% static 'js/mvpready-admin.js' %}"></script>
-
+<script src='{% static 'js/for_pages/dashboard.js' %}'></script>
 {% block extra-script %}{% endblock %}
 
 {# media associated with any form we are displaying #}

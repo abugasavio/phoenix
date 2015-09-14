@@ -16,7 +16,7 @@
 {% endif %}
 <form action="" method="post"> {% csrf_token %}
     <fieldset>
-        <h3 class="content-title"><u>Identity</u></h3>
+        <h3 class="form-title">Identity</h3>
         <!-- row 1 -->
         <div class='row'>
             <div class='col-sm-6'>
@@ -51,7 +51,7 @@
 
     <!-- description -->
     <fieldset>
-        <h3 class="content-title"><u>Description</u></h3>
+        <h3 class="form-title">Description</h3>
         <div class='row'>
             <div class='col-sm-4'>
                 <div class="form-group{% if form.color.errors %} has-error{% endif %}">
@@ -124,7 +124,7 @@
     <!-- end of description -->
     <!-- calfhood -->
     <fieldset>
-        <h3 class="content-title"><u>Calfhood</u></h3>
+        <h3 class="form-title">Calfhood</h3>
         <!-- birth row -->
         <div class='row'>
             <div class='col-sm-6'>

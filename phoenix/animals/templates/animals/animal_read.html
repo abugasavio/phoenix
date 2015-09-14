@@ -49,17 +49,17 @@
       <li role="presentation"><a href="#transactions" aria-controls="transactions" role="tab" data-toggle="tab">Transactions</a></li>
   </ul>
   <!-- Tab panes -->
-  <div class="tab-content">
+  <div class="tab-content bottom-margin">
       {% if fertile %}
-        <div role="tabpanel" class="tab-pane" id="services">{{ services }}</div>
-        <div role="tabpanel" class="tab-pane" id="pregnancies">{{ pregnancies }}</div>
-        <div role="tabpanel" class="tab-pane" id="offsprings">{{ offsprings }}</div>
-        <div role="tabpanel" class="tab-pane" id="milkproduction">{{ milkproduction }}</div>
+        <div role="tabpanel" class="tab-pane padded" id="services">{{ services }}</div>
+        <div role="tabpanel" class="tab-pane padded" id="pregnancies">{{ pregnancies }}</div>
+        <div role="tabpanel" class="tab-pane padded" id="offsprings">{{ offsprings }}</div>
+        <div role="tabpanel" class="tab-pane padded" id="milkproduction">{{ milkproduction }}</div>
       {% endif %}
-      <div role="tabpanel" class="tab-pane" id="health">{{ treatment }}</div>
-      <div role="tabpanel" class="tab-pane" id="notes">{{ notes }}</div>
-      <div role="tabpanel" class="tab-pane" id="documents">{{ animal_documents }}</div>
-      <div role="tabpanel" class="tab-pane" id="transactions">{{ transactions }}</div>
+      <div role="tabpanel" class="tab-pane padded" id="health">{{ treatment }}</div>
+      <div role="tabpanel" class="tab-pane padded" id="notes">{{ notes }}</div>
+      <div role="tabpanel" class="tab-pane padded" id="documents">{{ animal_documents }}</div>
+      <div role="tabpanel" class="tab-pane padded" id="transactions">{{ transactions }}</div>
   </div>
 </div>
 
