@@ -1,6 +1,12 @@
+from django.utils.safestring import mark_safe
+from django.utils.six import text_type
 from django_select2.views import NO_ERR_RESP
-from django_select2.fields import AutoSelect2MultipleField, AutoModelSelect2Field
-from .models import Animal, Color, Breed, Breeder
+from django.core.exceptions import ValidationError
+from django_select2.widgets import AutoHeavySelect2Widget
+from django_select2.fields import AutoSelect2MultipleField, AutoModelSelect2Field, AutoModelSelect2TagField
+from django.utils.html import format_html
+from django.forms.utils import flatatt, force_text
+from .models import Animal, Color, Breed, Breeder, Sire, Dam
 
 
 class MultipleAnimalsField(AutoSelect2MultipleField):
@@ -17,25 +23,19 @@ class MultipleAnimalsField(AutoSelect2MultipleField):
 
 
 class BullField(AutoModelSelect2Field):
-    queryset = Animal.objects.filter(sex=Animal.SEX_CHOICES.male)
+    queryset = Sire.objects.all()
     search_fields = ['name__icontains']
     to_field = 'name'
 
 
 class CowField(AutoModelSelect2Field):
-    queryset = Animal.objects.filter(sex=Animal.SEX_CHOICES.female)
+    queryset = Dam.objects.all()
     search_fields = ['name__icontains']
     to_field = 'name'
 
 
 class ColorField(AutoModelSelect2Field):
     queryset = Color.objects
-    search_fields = ['name__icontains']
-    to_field = 'name'
-
-
-class BreedField(AutoModelSelect2Field):
-    queryset = Breed.objects
     search_fields = ['name__icontains']
     to_field = 'name'
 

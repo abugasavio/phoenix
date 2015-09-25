@@ -10,7 +10,7 @@ from smartmin.views import SmartCRUDL, SmartView, SmartCreateView, SmartReadView
 from phoenix.finances.views import TransactionCRUDL
 from phoenix.records.views import NoteCRUDL
 from phoenix.health.views import TreatmentCRUDL
-from .models import Animal, Breed, Service, PregnancyCheck, MilkProduction, Color
+from .models import Animal, Breed, Service, PregnancyCheck, MilkProduction, Color, Dam, Sire, Breeder
 from .forms import AnimalForm, ServiceForm, PregnancyCheckForm, MilkProductionForm
 
 
@@ -526,3 +526,15 @@ class AnimalCRUDL(SmartCRUDL):
             if obj.dam:
                 return obj.dam
             return ''
+
+
+class SireCRUDL(SmartCRUDL):
+    model = Sire
+
+
+class DamCRUDL(SmartCRUDL):
+    model = Dam
+
+
+class BreederCRUDL(SmartCRUDL):
+    model = Breeder

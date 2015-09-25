@@ -2,7 +2,5 @@
 {% block title %}{{ block.super }}  | Add Animal {% endblock title %}
 {% block page_title %} Add Animal {% endblock %}
 {% block content %}
-    <div class="padded">
-        {% include 'animals/animal_form.html' %}
-    </div>
+    {% include 'animals/animal_form.html' %}
 {% endblock %}

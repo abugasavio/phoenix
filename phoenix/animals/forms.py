@@ -1,17 +1,18 @@
 from django import forms
+from django.utils.safestring import mark_safe
 from bootstrap3_datetime.widgets import DateTimePicker
 from django_select2.fields import Select2ChoiceField
-from django_select2.widgets import AutoHeavySelect2Widget, Select2Widget
-from .models import Animal, Service, PregnancyCheck, MilkProduction
-from .fields import BullField, CowField, ColorField, BreedField, BreederField
+from django_select2.widgets import AutoHeavySelect2Widget, Select2Widget, AutoHeavySelect2TagWidget, HeavySelect2TagWidget
+from .models import Animal, Service, PregnancyCheck, MilkProduction, Sire, Dam
+from .fields import BullField, CowField, ColorField, BreederField
 
 
 class AnimalForm(forms.ModelForm):
-    breed = BreedField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}))
     sex = Select2ChoiceField(choices=Animal.SEX_CHOICES, widget=Select2Widget(select2_options={'minimumInputLength': 0}))
     color = ColorField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}))
-    sire = BullField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}))
-    dam = CowField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}))
+    sire = BullField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0, 'placeholder':' revter', 'width': '40px'}),
+                     attrs={'add_button':mark_safe('<button id="comment-button" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Category</button>')})
+    dam = CowField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}), help_text='')
     breeder = BreederField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}))
     birth_date = forms.DateField(widget=DateTimePicker(options={'format': 'YYYY-MM-DD', 'pickTime': False}))
     weaning_date = forms.DateField(widget=DateTimePicker(options={'format': 'YYYY-MM-DD', 'pickTime': False}), required=False)
@@ -54,3 +55,17 @@ class MilkProductionForm(forms.ModelForm):
     class Meta:
         model = MilkProduction
         fields = ('date', 'time', 'amount', 'butterfat',)
+
+
+class SireForm(forms.ModelForm):
+
+    class Meta:
+        model = Sire
+        fields = ('name', 'code', 'breed', 'birth_date', 'breeder')
+
+
+class DamForm(forms.ModelForm):
+
+    class Meta:
+        model = Dam
+        fields = ('name', 'code', 'breed', 'birth_date', 'breeder')

@@ -96,9 +96,10 @@
                     {{ form.sire.label_tag }}
                     <div>
                     {{ form.sire|add_css:"select2width" }}
+                    {{ form.sire.add_button }}
                     </div>
                     <div class="text-muted pull-right">
-                        <small>{{ form.sire.help_text }}</small>
+                        <small>{{ form.sire.add_button }}</small>
                     </div>
                     <div class="help-block">
                         {{ form.sire.errors }}

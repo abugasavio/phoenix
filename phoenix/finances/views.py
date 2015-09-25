@@ -5,15 +5,25 @@ from django.shortcuts import redirect
 from smartmin.views import SmartCRUDL, SmartCreateView, SmartUpdateView, SmartListView
 from phoenix.utils.view_utils import AjaxTemplateMixin
 from .models import Transaction, Category
-from .forms import TransactionForm
+from .forms import TransactionForm, CategoryForm
 
 
 class CategoryFormView(AjaxTemplateMixin, CreateView):
     ajax_template_name = 'finances/category_create_inner.html'
-    model = Category
+    form_class = CategoryForm
 
     def get_success_url(self):
         return self.request.META.get('HTTP_REFERER', '/')
+
+    def form_valid(self, form):
+        if hasattr(form.instance, 'created_by_id') and self.request.user.id >= 0:
+            form.instance.created_by = self.request.user
+
+        # auto populate modified_by if it is present
+        if hasattr(form.instance, 'modified_by_id') and self.request.user.id >= 0:
+            form.instance.modified_by = self.request.user
+
+        return super(CategoryFormView, self).form_valid(form)
 
 
 class CategoryCRUDL(SmartCRUDL):

@@ -1,4 +1,6 @@
 {% extends "smartmin/create.html" %}
+{% load crispy_forms_tags %}
+
 {% load staticfiles i18n %}
 {% block title %}{{ block.super }}  | Add Transaction {% endblock title %}
 {% block page_title %} Add {{ request.GET.type|title }} {% endblock %}

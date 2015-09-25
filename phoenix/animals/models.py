@@ -29,6 +29,25 @@ class Breeder(SmartModel):
     name = models.CharField(max_length=30)
 
 
+class Sire(SmartModel):
+    name = models.CharField(max_length=30, blank=False)
+    code = models.CharField(max_length=10, blank=True)
+    breed = models.ForeignKey(Breed, null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='sire_breeder')
+
+    def __unicode__(self):
+        return self.name
+
+
+class Dam(SmartModel):
+    name = models.CharField(max_length=30)
+    breed = models.ForeignKey(Breed, null=True, blank=True)
+    code = models.CharField(max_length=10, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='dam_breeder')
+
+
 class Animal(SmartModel):
 
     state = FSMField(default='open')
@@ -64,8 +83,8 @@ class Animal(SmartModel):
     color = models.ForeignKey(Color, null=True, blank=True)
     sex = models.CharField(choices=SEX_CHOICES, max_length=20)
     breed = models.ForeignKey(Breed, null=True, blank=True)
-    sire = models.ForeignKey('self', null=True, blank=True, related_name='sire_offsprings')
-    dam = models.ForeignKey('self', null=True, blank=True, related_name='dam_offsprings')
+    sire = models.ForeignKey(Sire, null=True, blank=True, related_name='sire')
+    dam = models.ForeignKey(Dam, null=True, blank=True, related_name='dam')
 
     # Calfhood
     birth_date = models.DateField(null=True, blank=True)
@@ -74,10 +93,6 @@ class Animal(SmartModel):
     weaning_weight = models.IntegerField(null=True, blank=True)
     yearling_date = models.DateField(null=True, blank=True)
     yearling_weight = models.IntegerField(null=True, blank=True)
-
-    # Sire details
-    code = models.CharField(max_length=10, blank=True)
-    breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='sires')
 
     def __unicode__(self):
         return '%s-%s' % (self.ear_tag, self.name)
