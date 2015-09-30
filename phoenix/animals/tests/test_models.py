@@ -5,7 +5,7 @@ from phoenix.animals.models import Animal
 
 class AnimalTestCase(TestCase):
     def setUp(self):
-        self.dam = mommy.make('animals.Animal', ear_tag='456', name='dam')
+        self.dam = mommy.make('animals.Animal', ear_tag='456', name='dam', sex=Animal.SEX_CHOICES.female)
         self.sire = mommy.make('animals.Animal', ear_tag='123', name='sire', sex=Animal.SEX_CHOICES.male)
 
     def test_transitions(self):

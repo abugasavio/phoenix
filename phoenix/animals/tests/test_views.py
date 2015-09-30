@@ -82,8 +82,9 @@ class AnimalCRUDLTestCase(TestCase):
 
         # existing animal with service
         service = mommy.make('animals.Service', sire=self.bull, animal=dufour)
-        url = reverse('animals.animal_add_offspring') + '?animal=' + str(self.cow.id)
+        url = reverse('animals.animal_add_offspring') + '?animal=' + str(dufour.id)
         response = self.client.get(url, follow=True)
+
         form_fields = response.context_data['form'].fields
         self.assertEqual(form_fields['birth_date'].initial, date.today())
         self.assertEqual(form_fields['dam'].initial, dufour)
