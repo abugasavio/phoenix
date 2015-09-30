@@ -4,9 +4,9 @@ from django.test.client import RequestFactory
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Permission
 from model_mommy import mommy
-from phoenix.apps.animals.models import Animal, PregnancyCheck, Service
-from phoenix.apps.animals import views
-from phoenix.apps.utils import test_utils
+from phoenix.animals.models import Animal, PregnancyCheck, Service
+from phoenix.animals import views
+from phoenix.utils import test_utils
 
 
 class AnimalCRUDLTestCase(TestCase):
@@ -16,6 +16,8 @@ class AnimalCRUDLTestCase(TestCase):
 
     def test_creating_animal(self):
         user = test_utils.create_logged_in_user(self)
+        print len(Permission.objects.all())
+
         user.user_permissions.add(Permission.objects.get(codename='animal_create'))
         user.user_permissions.add(Permission.objects.get(codename='animal_list'))
         post_data = {

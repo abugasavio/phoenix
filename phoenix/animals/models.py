@@ -28,6 +28,9 @@ class Color(SmartModel):
 class Breeder(SmartModel):
     name = models.CharField(max_length=30)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Sire(SmartModel):
     name = models.CharField(max_length=30, blank=False)
@@ -46,6 +49,9 @@ class Dam(SmartModel):
     code = models.CharField(max_length=10, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='dam_breeder')
+
+    def __unicode__(self):
+        return self.name
 
 
 class Animal(SmartModel):

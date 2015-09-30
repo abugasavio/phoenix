@@ -7,7 +7,7 @@ def login_user(test_case, user, password):
 
 
 def create_logged_in_user(test_case, username='mary', password='marypassword'):
-    user = mommy.make('auth.User')
+    user = mommy.make('users.User')
     user.username = username
     user.set_password(password)
     user.save()

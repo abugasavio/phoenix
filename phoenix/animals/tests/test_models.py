@@ -1,6 +1,6 @@
 from django.test import TestCase
 from model_mommy import mommy
-from phoenix.apps.animals.models import Animal
+from phoenix.animals.models import Animal
 
 
 class AnimalTestCase(TestCase):

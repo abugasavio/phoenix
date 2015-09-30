@@ -1,7 +1,7 @@
 from datetime import date
 from django.test import TestCase
-from phoenix.apps.animals.forms import AnimalForm
-from phoenix.apps.animals.models import Animal
+from phoenix.animals.forms import AnimalForm
+from phoenix.animals.models import Animal
 
 
 class AnimalFormTestCase(TestCase):

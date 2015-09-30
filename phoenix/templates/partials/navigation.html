@@ -29,27 +29,17 @@
   -->
   <div class="relative-w">
     <ul class="side-menu side-menu-orange">
+      <!--
       <li class='current'>
         <a class='current' href="{% url 'dashboard' %}">
           <i class="icon-dashboard"></i> Dashboard
         </a>
       </li>
+      -->
       <li>
         <a href="{% url 'animals.animal_list' %}">
           <span class="badge pull-right">1</span>
           <i class="icon-list"></i> Livestock
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'animals.sire_list' %}">
-          <span class="badge pull-right">1</span>
-          <i class="icon-list"></i> Sires
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'animals.dam_list' %}">
-          <span class="badge pull-right">1</span>
-          <i class="icon-list"></i> Dams
         </a>
       </li>
       <li>
@@ -65,8 +55,21 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'finances.transaction_list' %}">
-          <i class="icon-calendar"></i> Transaction
+        <a href="{% url 'animals.sire_list' %}">
+          <span class="badge pull-right">1</span>
+          <i class="icon-list"></i> Sires
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'animals.dam_list' %}">
+          <span class="badge pull-right">1</span>
+          <i class="icon-list"></i> Dams
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'animals.breeder_list' %}">
+          <span class="badge pull-right">1</span>
+          <i class="icon-list"></i> Breeders
         </a>
       </li>
       <li>

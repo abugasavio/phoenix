@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 import environ
+from .permissions import *
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('phoenix')
@@ -37,7 +38,6 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
     'guardian',
-    'smartmin',
     'bootstrap3',
     'django_select2',
     'bootstrap3_datetime',
@@ -54,7 +54,6 @@ LOCAL_APPS = (
     'phoenix.animals',
     'phoenix.groups',
     'phoenix.dashboard',
-    'phoenix.finances',
     'phoenix.health',
     'phoenix.utils',
     'phoenix.utils.upload',

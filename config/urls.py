@@ -9,7 +9,6 @@ from phoenix.dashboard.views import DashboardView
 from django.views.generic import TemplateView
 
 urlpatterns = [url(r'^$', DashboardView.as_view(), name='dashboard'),
-               url(r'^finances/', include('phoenix.finances.urls')),
                url(r'^records/', include('phoenix.records.urls')),
                url(r'^health/', include('phoenix.health.urls')),
                url(r'^animals/', include('phoenix.animals.urls')),

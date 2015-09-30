@@ -496,15 +496,15 @@ class AnimalCRUDL(SmartCRUDL):
     class List(SmartListView):
         fields = ('id', 'name', 'color', 'breed', 'sex', 'sire', 'dam')
 
-        def get_queryset(self, **kwargs):
-            queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
-            if hasattr(self.request, 'offsprings') and self.request.offsprings:
-                queryset = queryset.filter(Q(sire=self.request.animal) | Q(dam=self.request.animal))
+        #def get_queryset(self, **kwargs):
+            #queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
+            #if hasattr(self.request, 'offsprings') and self.request.offsprings:
+            #    queryset = queryset.filter(Q(sire=self.request.animal) | Q(dam=self.request.animal))
 
-            if hasattr(self.request, 'group') and self.request.group:
-                queryset = self.request.group.get_animals_queryset()
+            #if hasattr(self.request, 'group') and self.request.group:
+            #    queryset = self.request.group.get_animals_queryset()
 
-            return queryset
+            #return queryset
 
         def get_context_data(self, **kwargs):
             context_data = super(AnimalCRUDL.List, self).get_context_data(**kwargs)
@@ -531,10 +531,19 @@ class AnimalCRUDL(SmartCRUDL):
 class SireCRUDL(SmartCRUDL):
     model = Sire
 
+    class List(SmartListView):
+        fields = ('id', 'name', 'code', 'breeder')
+
 
 class DamCRUDL(SmartCRUDL):
     model = Dam
 
+    class List(SmartListView):
+        fields = ('id', 'name', 'code', 'breeder')
+
 
 class BreederCRUDL(SmartCRUDL):
     model = Breeder
+
+    class List(SmartListView):
+        fields = ('id', 'name')

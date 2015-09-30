@@ -18,17 +18,10 @@
 {% block page_title %} {{ object }} Details {% endblock %}
 {% block read-buttons %}
     <div class="btn-group pull-right">
-      <button type="button" class="btn btn-primary">Actions</button>
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        <span class="caret"></span>
-        <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
          {% if view.edit_button %}
-            <li><a href="../../update/{{ object.id }}/">Edit</a></li>
-         {% endif %}
-        <li><a href="{% url 'animals.animal_dashboard' object.id %}">Analytics</a></li>
-      </ul>
+            <a href="../../update/{{ object.id }}/" class="btn btn-primary">Edit</a>
+         {%  endif %}
+        <a href="{% url 'animals.animal_dashboard' object.id %}" class="btn btn-primary">Analytics</a>
     </div>
 
 {% endblock read-buttons %}

@@ -2,9 +2,9 @@ from datetime import date
 from django.test import TestCase
 from django.contrib.auth.models import Permission
 from model_mommy import mommy
-from phoenix.apps.utils.test_utils import create_logged_in_user
-from phoenix.apps.animals.models import Animal
-from phoenix.apps.finances.models import Transaction
+from phoenix.utils.test_utils import create_logged_in_user
+from phoenix.animals.models import Animal
+from phoenix.finances.models import Transaction
 
 
 class TransactionTestCae(TestCase):
