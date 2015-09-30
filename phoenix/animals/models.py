@@ -162,7 +162,7 @@ class Service(SmartModel):
 
     animal = models.ForeignKey(Animal, null=False, blank=False, related_name='animal_services')
     method = models.CharField(choices=METHOD_CHOICES, max_length=30, default=METHOD_CHOICES.artificial_insemination, blank=False)
-    sire = models.ForeignKey(Animal, null=False, blank=False, related_name='sire_services')
+    sire = models.ForeignKey(Sire, null=False, blank=False, related_name='sire_services')
     date = models.DateField()
     notes = models.CharField(max_length=200, blank=True)
 
