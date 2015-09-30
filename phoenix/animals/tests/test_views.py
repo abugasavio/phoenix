@@ -240,7 +240,7 @@ class TreatmentCRUDLTestCase(TestCase):
         response = self.client.get(url, follow=True)
         self.assertContains(response, 'Animal Id is required')
         # non-existent animal
-        url = reverse('animals.treatment_create') + '?animal=1'
+        url = reverse('animals.treatment_create') + '?animal=10'
         response = self.client.get(url, follow=True)
         self.assertContains(response, 'Animal Id is required')
         # existing animal
@@ -264,33 +264,3 @@ class TreatmentCRUDLTestCase(TestCase):
         response = self.client.get(url, follow=True)
         self.assertContains(response, reverse('animals.animal_read', args=[self.shauna.id]))
         self.assertContains(response, reverse('animals.animal_read', args=[self.laryn.id]))
-
-
-class TransactionCRUDLTestCase(TestCase):
-
-    def setUp(self):
-        self.shauna = mommy.make('animals.Animal', ear_tag='123')
-
-    def test_animal_id_required(self):
-        user = test_utils.create_logged_in_user(self)
-        user.user_permissions.add(Permission.objects.get(codename='animal_read'))
-        user.user_permissions.add(Permission.objects.get(codename='animal_list'))
-        user.user_permissions.add(Permission.objects.get(codename='transaction_list'))
-        user.user_permissions.add(Permission.objects.get(codename='transaction_create'))
-
-        # without the animal id
-        url = reverse('animals.transaction_create')
-        response = self.client.get(url, follow=True)
-        self.assertContains(response, 'Animal Id is required')
-
-        # non existent animal id
-        url = reverse('animals.transaction_create') + '?animal=100'
-        response = self.client.get(url, follow=True)
-        self.assertContains(response, 'Animal Id is required')
-
-        # existing animal, proceed as normal
-        url = reverse('animals.transaction_create') + '?animal=' + str(self.shauna.id)
-        response = self.client.get(url, follow=True)
-        self.assertNotContains(response, 'Animal Id is required')
-
-

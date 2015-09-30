@@ -7,7 +7,6 @@ from smartmin.views import SmartCRUDL, SmartView, SmartCreateView, SmartReadView
 from phoenix.animals.views import AnimalCRUDL
 from phoenix.health.views import TreatmentCRUDL
 from phoenix.records.views import NoteCRUDL
-from phoenix.finances.views import TransactionCRUDL
 from .models import Group
 from .forms import GroupForm
 
@@ -93,48 +92,6 @@ class GroupTreatmentCRUDL(TreatmentCRUDL):
             return queryset
 
 
-class GroupTransactionCRUDL(TransactionCRUDL):
-    class Create(TransactionCRUDL.Create):
-        fields = ('date', 'category', 'amount')
-
-        def get(self, request, *args, **kwargs):
-            group_id = request.GET.get('group', None)
-            if group_id:
-                try:
-                    Group.objects.get(id=group_id)
-                except Group.DoesNotExist:
-                    messages.error(request, 'Group Id is required')
-                    return redirect(request.META.get('HTTP_REFERER', reverse('groups.group_list')))
-            else:
-                messages.error(request, 'Group Id is required')
-                return redirect(request.META.get('HTTP_REFERER', reverse('groups.group_list')))
-            return super(GroupTransactionCRUDL.Create, self).get(request, *args, **kwargs)
-
-        def post_save(self, obj):
-            obj = super(GroupTransactionCRUDL.Create, self).post_save(obj)
-            group_id = self.request.GET.get('group', None)
-            group = Group.objects.get(id=group_id)
-            obj.group = group
-            obj.save()
-            return obj
-
-        def get_success_url(self):  # pragma: no cover
-            return reverse('groups.group_read', args=[self.request.GET.get('group')])
-
-    class List(TransactionCRUDL.List):
-        fields = ('id', 'date', 'category', 'amount')
-
-        def get_queryset(self, **kwargs):
-            queryset = super(GroupTransactionCRUDL.List, self).get_queryset(**kwargs)
-            queryset = queryset.filter(group=self.request.group)
-            return queryset
-
-        def get_context_data(self, **kwargs):
-            context_data = super(GroupTransactionCRUDL.List, self).get_context_data(**kwargs)
-            context_data['group'] = self.request.group
-            return context_data
-
-
 class GroupCRUDL(SmartCRUDL):
     model = Group
 
@@ -166,10 +123,6 @@ class GroupCRUDL(SmartCRUDL):
             if hasattr(note_response, 'context_data'):
                 note_response.context_data['add_url'] = reverse('groups.note_create') + '?group=' + str(self.request.group.id)
                 context_data['notes'] = render_to_string('records/note_related_list.html', note_response.context_data, RequestContext(self.request))
-
-            transaction_response = TransactionCRUDL().view_for_action('list').as_view()(self.request)
-            if hasattr(transaction_response, 'context_data'):
-                context_data['transactions'] = render_to_string('groups/transaction_related_list.html', transaction_response.context_data, RequestContext(self.request))
 
             return context_data
 

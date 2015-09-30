@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.views.generic import DetailView
 from smartmin.views import SmartCRUDL, SmartView, SmartCreateView, SmartReadView, SmartUpdateView, SmartListView
-from phoenix.finances.views import TransactionCRUDL
 from phoenix.records.views import NoteCRUDL
 from phoenix.health.views import TreatmentCRUDL
 from .models import Animal, Breed, Service, PregnancyCheck, MilkProduction, Color, Dam, Sire, Breeder
@@ -161,46 +160,6 @@ class PregnancyCheckCRUDL(SmartCRUDL):
             context_data = super(PregnancyCheckCRUDL.List, self).get_context_data(**kwargs)
             if hasattr(self.request, 'animal'):
                 context_data['animal'] = self.request.animal
-            return context_data
-
-
-class AnimalTransactionCRUDL(TransactionCRUDL):
-    class Create(TransactionCRUDL.Create):
-        fields = ('date', 'category', 'amount')
-
-        def get(self, request, *args, **kwargs):
-            animal_id = request.GET.get('animal', None)
-            if animal_id:
-                try:
-                    Animal.objects.get(id=animal_id)
-                except Animal.DoesNotExist:
-                    messages.error(request, 'Animal Id is required')
-                    return redirect(request.META.get('HTTP_REFERER', reverse('animals.animal_list')))
-            else:
-                messages.error(request, 'Animal Id is required')
-                return redirect(request.META.get('HTTP_REFERER', reverse('animals.animal_list')))
-            return super(AnimalTransactionCRUDL.Create, self).get(request, *args, **kwargs)
-
-        def post_save(self, obj):  # pragma: no cover
-            animal_id = self.request.GET.get('animal', None)
-            animal = Animal.objects.get(id=animal_id)
-            obj.animals.add(animal)
-            return obj
-
-        def get_success_url(self):  # pragma: no cover
-            return reverse('animals.animal_read', args=[self.request.GET.get('animal')])
-
-    class List(TransactionCRUDL.List):
-        fields = ('id', 'date', 'category', 'amount')
-
-        def get_queryset(self, **kwargs):
-            queryset = super(AnimalTransactionCRUDL.List, self).get_queryset(**kwargs)
-            queryset = queryset.filter(animals=self.request.animal)
-            return queryset
-
-        def get_context_data(self, **kwargs):
-            context_data = super(AnimalTransactionCRUDL.List, self).get_context_data(**kwargs)
-            context_data['animal'] = self.request.animal
             return context_data
 
 
