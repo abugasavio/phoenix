@@ -13,6 +13,7 @@ class AnimalCRUDLTestCase(TestCase):
     def setUp(self):
         self.bull = mommy.make('animals.Sire')
         self.cow = mommy.make('animals.Dam')
+        self.animal = mommy.make('animals.Animal', name='Dufour', birth_date=date.today(), sex=Animal.SEX_CHOICES.female)
 
     def test_creating_animal(self):
         user = test_utils.create_logged_in_user(self)
@@ -73,17 +74,19 @@ class AnimalCRUDLTestCase(TestCase):
         self.assertContains(response, 'Animal Id is required')
 
         # existing animal but with no service, proceed as normal
-        url = reverse('animals.animal_add_offspring') + '?animal=' + str(self.cow.id)
+        dufour = mommy.make('animals.Animal', name='Dufour', birth_date=date.today(), sex=Animal.SEX_CHOICES.female)
+
+        url = reverse('animals.animal_add_offspring') + '?animal=' + str(dufour.id)
         response = self.client.get(url, follow=True)
         self.assertNotContains(response, 'Animal Id is required')
 
         # existing animal with service
-        service = mommy.make('animals.Service', sire=self.cow, animal=self.cow)
+        service = mommy.make('animals.Service', sire=self.bull, animal=dufour)
         url = reverse('animals.animal_add_offspring') + '?animal=' + str(self.cow.id)
         response = self.client.get(url, follow=True)
         form_fields = response.context_data['form'].fields
         self.assertEqual(form_fields['birth_date'].initial, date.today())
-        self.assertEqual(form_fields['dam'].initial, self.cow)
+        self.assertEqual(form_fields['dam'].initial, dufour)
         self.assertEqual(form_fields['sire'].initial, service.sire)
 
     def test_adding_offspring(self):
@@ -98,7 +101,7 @@ class AnimalCRUDLTestCase(TestCase):
             'birth_date': date.today()
         }
 
-        url = reverse('animals.animal_add_offspring') + '?animal=' + str(self.cow.id)
+        url = reverse('animals.animal_add_offspring') + '?animal=' + str(self.animal.id)
         self.client.post(url, post_data, follow=True)
         offspring = Animal.objects.latest('created_on')
         self.assertEqual(offspring.ear_tag, '104M')
@@ -106,8 +109,8 @@ class AnimalCRUDLTestCase(TestCase):
 
 class ServiceCRUDLTestCase(TestCase):
     def setUp(self):
-        self.shauna = mommy.make('animals.Animal', ear_tag='123')
-        self.bull = mommy.make('animals.Animal', ear_tag='1243', name='sire', sex=Animal.SEX_CHOICES.male)
+        self.shauna = mommy.make('animals.Animal', ear_tag='123', name='shauna', sex=Animal.SEX_CHOICES.female)
+        self.bull = mommy.make('animals.Sire', name='sire')
         self.service = mommy.make('animals.Service', animal=self.shauna, method=Service.METHOD_CHOICES.artificial_insemination,
                                   sire=self.bull)
 
@@ -133,18 +136,18 @@ class ServiceCRUDLTestCase(TestCase):
         response = self.client.get(url, follow=True)
         self.assertNotContains(response, 'Animal Id is required')
 
-    def adding_service(self):
+    def test_adding_service(self):
         user = test_utils.create_logged_in_user(self)
         user.user_permissions.add(Permission.objects.get(codename='animal_read'))
         user.user_permissions.add(Permission.objects.get(codename='animal_create'))
         user.user_permissions.add(Permission.objects.get(codename='service_create'))
         user.user_permissions.add(Permission.objects.get(codename='service_list'))
 
-        self.phoenix = mommy.make('animals.Animal', ear_tag='PNX')
+        self.phoenix = mommy.make('animals.Animal', ear_tag='PNX', sex=Animal.SEX_CHOICES.female)
 
         post_data = {
             'method': Service.METHOD_CHOICES.artificial_insemination,
-            'sire': self.sire.id,
+            'sire': self.bull.id,
             'date': date.today()
         }
 
@@ -155,7 +158,7 @@ class ServiceCRUDLTestCase(TestCase):
         self.assertRedirects(response, reverse('animals.animal_read', args=[self.phoenix.id]))
         self.assertContains(response, 'Artificial Insemination')
 
-    def service_read(self):
+    def test_service_read(self):
         user = test_utils.create_logged_in_user(self)
         user.user_permissions.add(Permission.objects.get(codename='animal_read'))
         user.user_permissions.add(Permission.objects.get(codename='service_read'))
@@ -165,7 +168,6 @@ class ServiceCRUDLTestCase(TestCase):
         response = self.client.get(url, follow=True)
         self.assertContains(response, 'Open')
         self.assertContains(response, pregnancy_check.id)
-        self.assertContains(response.context_data, 'pregnancychecks')
 
 
 class PregnancyCheckCRDULTestCase(TestCase):

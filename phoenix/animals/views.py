@@ -412,11 +412,11 @@ class AnimalCRUDL(SmartCRUDL):
 
             return field
 
-        def pre_save(self, obj):
-            obj = super(AnimalCRUDL.AddOffspring, self).pre_save(obj)
-            animal_id = self.request.GET.get('animal')
-            obj.dam = Animal.objects.get(id=animal_id)
-            return obj
+        #def pre_save(self, obj):
+         #   obj = super(AnimalCRUDL.AddOffspring, self).pre_save(obj)
+          #  animal_id = self.request.GET.get('animal')
+            #obj.dam = Animal.objects.get(id=animal_id)
+            #eturn obj
 
         def post_save(self, obj):
             obj.lactating()
@@ -474,10 +474,6 @@ class AnimalCRUDL(SmartCRUDL):
                 context_data['notes'] = render_to_string('records/note_related_list.html', note_response.context_data, RequestContext(self.request))
 
             context_data['animal_documents'] = render_to_string('records/animaldocument_form.html', {'animal': self.request.animal}, RequestContext(self.request))
-
-            transaction_response = AnimalTransactionCRUDL().view_for_action('list').as_view()(self.request)
-            if hasattr(transaction_response, 'context_data'):
-                context_data['transactions'] = render_to_string('animals/transaction_related_list.html', transaction_response.context_data, RequestContext(self.request))
 
             milkproduction_response = MilkProductionCRUDL().view_for_action('list').as_view()(self.request)
             if hasattr(milkproduction_response, 'context_data'):
