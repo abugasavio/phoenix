@@ -7,33 +7,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel='stylesheet' href='{% static 'css/fullcalendar.css' %}'>
-  <link rel='stylesheet' href='{% static 'css/datatables/datatables.css' %}'>
-  <link rel='stylesheet' href='{% static 'css/datatables/bootstrap.datatables.css' %}'>
   <link rel='stylesheet' href='{% static 'scss/chosen.css' %}'>
   <link rel='stylesheet' href='{% static 'scss/font-awesome/font-awesome.css' %}'>
   <link rel='stylesheet' href='{% static 'css/app.css' %}'>
   <!-- Plugin CSS -->
   {% import_django_select2_css %}
   <link rel="stylesheet" href="{% static 'css/select2-bootstrap.css' %}">
-  <link rel="stylesheet" href="{% static 'django_modalview/css/modal.css' %}" type="text/css" />
   <link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
-  <link href='{% static 'assets/favicon.ico' %}' rel="shortcut icon">
-  <link href='{% static 'assets/apple-touch-icon.png' %}' rel="apple-touch-icon">
+  <link href='{% static 'images/favicon.ico' %}' rel="shortcut icon">
+  <link href='{% static 'images/apple-touch-icon.png' %}' rel="apple-touch-icon">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   @javascript html5shiv respond.min
   <![endif]-->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="{% static 'django_modalview/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'django_modalview/js/django_modal_view.js' %}"></script>
-<script type="text/javascript" src="{% static 'django_modalview/js/jquery.form.js' %}"></script>
-    <script type="text/javascript">
 
-        $(function(){
-    $('#my_modal_runner').DjangoModalRunner();
-});
-    </script>
 
 {% if form %}
 {{ form.media }}
@@ -96,9 +85,7 @@
 <script src='{% static 'js/bootstrap/tooltip.js' %}'></script>
 <script src='{% static 'js/jquery.knob.js' %}'></script>
 <script src='{% static 'js/fullcalendar.min.js' %}'></script>
-<script src='{% static 'js/datatables/datatables.min.js' %}'></script>
 <script src='{% static 'js/chosen.jquery.min.js' %}'></script>
-<script src='{% static 'js/datatables/bootstrap.datatables.js' %}'></script>
 <script src='{% static 'js/raphael-min.js' %}'></script>
 <script src='{% static 'js/morris-0.4.3.min.js' %}'></script>
 <script src='{% static 'js/for_pages/color_settings.js' %}'></script>

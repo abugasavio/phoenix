@@ -98,13 +98,24 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # EMAIL
 # ------------------------------------------------------------------------------
+#DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',default='phoenix <noreply@farmguru.ansgax.com>')
+#EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+#MAILGUN_ACCESS_KEY = env('DJANGO_MAILGUN_API_KEY')
+#MAILGUN_SERVER_NAME = env('DJANGO_MAILGUN_SERVER_NAME')
+#EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default='[phoenix] ')
+#SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+
+# EMAIL
+# ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='phoenix <noreply@farmguru.ansgax.com>')
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = env('DJANGO_MAILGUN_API_KEY')
-MAILGUN_SERVER_NAME = env('DJANGO_MAILGUN_SERVER_NAME')
-EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default='[phoenix] ')
-SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+                         default='phoenix <noreply@phoenix.farmguru.co.ke>')
+EMAIL_HOST = env("DJANGO_EMAIL_HOST", default='smtp.sendgrid.com')
+EMAIL_HOST_PASSWORD = env("SENDGRID_PASSWORD")
+EMAIL_HOST_USER = env('SENDGRID_USERNAME')
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_SUBJECT_PREFIX = env("EMAIL_SUBJECT_PREFIX", default='[phoenix] ')
+EMAIL_USE_TLS = True
+SERVER_EMAIL = EMAIL_HOST_USER
 
 # TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------
