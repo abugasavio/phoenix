@@ -21,6 +21,6 @@ class NoteForm(forms.ModelForm):
 
     class Media:
         css = {
-            'screen': (settings.STATIC_URL + 'js/plugins/jasnyBootstrap/jasny-bootstrap.min.css',)
+            'screen': (settings.STATIC_URL + 'css/jasny-bootstrap.min.css',)
         }
-        js = (settings.STATIC_URL + 'js/plugins/jasnyBootstrap/jasny-bootstrap.min.js',)
+        js = (settings.STATIC_URL + 'js/jasny-bootstrap.min.js',)
