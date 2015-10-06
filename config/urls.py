@@ -6,9 +6,10 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from phoenix.dashboard.views import DashboardView
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
-urlpatterns = [url(r'^$', DashboardView.as_view(), name='dashboard'),
+urlpatterns = [#url(r'^$', DashboardView.as_view(), name='dashboard'),
+               url(r'^$', RedirectView.as_view(pattern_name='animals.animal_list'), name='dashboard'),
                url(r'^records/', include('phoenix.records.urls')),
                url(r'^health/', include('phoenix.health.urls')),
                url(r'^animals/', include('phoenix.animals.urls')),
