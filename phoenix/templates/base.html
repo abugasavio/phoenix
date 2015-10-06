@@ -6,7 +6,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel='stylesheet' href='{% static 'css/fullcalendar.css' %}'>
   <link rel='stylesheet' href='{% static 'scss/chosen.css' %}'>
   <link rel='stylesheet' href='{% static 'scss/font-awesome/font-awesome.css' %}'>
   <link rel='stylesheet' href='{% static 'css/app.css' %}'>
@@ -22,77 +21,51 @@
   @javascript html5shiv respond.min
   <![endif]-->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-
-{% if form %}
-{{ form.media }}
-{% endif %}
-
-{% import_django_select2_js %}
   <title>{% block title %} Farmguru {% endblock %}</title>
-
 </head>
 
 <body>
 <div class="all-wrapper">
-<div class="row">
+  <div class="row">
     {%  block navigation %}
         {% include 'partials/navigation.html' %}
     {%  endblock %}
     <div class="col-md-9">
-    <div class="content-wrapper">
-       <div class="content-inner content-inner-white">
-       <div class="page-header page-header-green">
-  <div class="header-links hidden-xs">
-    <a href="notifications.html"><i class="icon-comments"></i> User Alerts</a>
-    <a href="#"><i class="icon-cog"></i> Settings</a>
-    <a href="{% url 'account_logout' %}"><i class="icon-signout"></i> Logout</a>
-  </div>
-  <h1><i class="icon-bar-chart"></i> {% block page_title %} {% endblock %}</h1>
-</div>
-
+      <div class="content-wrapper">
+        <div class="content-inner content-inner-white">
+          <div class="page-header page-header-green">
+            <!--
+            <div class="header-links hidden-xs">
+            <a href="notifications.html"><i class="icon-comments"></i> User Alerts</a>
+            <a href="#"><i class="icon-cog"></i> Settings</a>
+            </div>
+            -->
+            <h1><i class="icon-bar-chart"></i> {% block page_title %} {% endblock %}</h1>
+          </div>
           <div class="main-content">
-          <div class="widget">
-
+            <div class="widget">
               <div class="widget-content-white glossed">
-              <div class="padded">
-              {% bootstrap_messages %}
-{%  block content %}
-
-
-{% endblock %}
-              </div>
+                <div class="padded">
+                  {% bootstrap_messages %}
+                  {%  block content %}
+                  {% endblock %}
                 </div>
               </div>
+            </div>
           </div>
-
-          </div>
-        </div>
-    </div>
-    </div>
-</div>
-    </div>
-
-
+        </div> <!-- content-wrapper content-inner-white-->
+      </div> <!-- content-wrapper -->
+    </div> <!-- col-md-9 -->
+  </div> <!-- row -->
+</div> <!-- all-wrapper-->
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script src='{% static 'js/jquery.sparkline.min.js' %}'></script>
-<script src="{% static 'js/libs/bootstrap.min.js' %}"></script>
-<script src='{% static 'js/bootstrap/tab.js' %}'></script>
-<script src='{% static 'js/bootstrap/dropdown.js' %}'></script>
-<script src='{% static 'js/bootstrap/collapse.js' %}'></script>
-<script src='{% static 'js/bootstrap/alert.js' %}'></script>
-<script src='{% static 'js/bootstrap/transition.js' %}'></script>
-<script src='{% static 'js/bootstrap/tooltip.js' %}'></script>
+<script src='{% static 'js/bootstrap.min.js' %}'></script>
 <script src='{% static 'js/jquery.knob.js' %}'></script>
-<script src='{% static 'js/fullcalendar.min.js' %}'></script>
 <script src='{% static 'js/chosen.jquery.min.js' %}'></script>
 <script src='{% static 'js/raphael-min.js' %}'></script>
 <script src='{% static 'js/morris-0.4.3.min.js' %}'></script>
-<script src='{% static 'js/for_pages/color_settings.js' %}'></script>
 <script src='{% static 'js/application.js' %}'></script>
-
-
-<script src='{% static 'js/for_pages/dashboard.js' %}'></script>
 {% block extra-script %}{% endblock %}
 
 {# media associated with any form we are displaying #}
@@ -100,12 +73,7 @@
 {{ form.media }}
 {% endif %}
 
-
-
-{% block script %}{% endblock %}
 {# endcompress #}
-
 {% import_django_select2_js %}
-
 </body>
 </html>
