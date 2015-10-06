@@ -6,6 +6,7 @@ from .forms import NoteForm
 
 class AnimalDocumentUploadView(UploadView):
     model = AnimalDocument
+    fields = ('file', 'animal')
     delete_url = 'records.animaldocument_delete'
 
     def get_context_data(self, **kwargs):

@@ -46,7 +46,7 @@ def is_image(url):
 
 def get_icon(obj):
     mimetype = mimetypes.guess_type(obj.url)[0]
-    upload_icons_url = settings.STATIC_URL + 'img/icons/'
+    upload_icons_url = settings.STATIC_URL + 'images/icons/'
     if is_image(obj.url):
         icon = obj.url
     elif mimetype == 'application/pdf':
