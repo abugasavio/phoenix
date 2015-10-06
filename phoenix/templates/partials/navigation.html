@@ -10,7 +10,6 @@
 </div>
 <div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">
   <a href="#" class="logo hidden-sm hidden-xs">
-    <i class="icon-cloud-download"></i>
     <span>farmguru</span>
   </a>
   <!--
@@ -38,7 +37,9 @@
       -->
       <li>
         <a href="{% url 'animals.animal_list' %}">
+          <!--
           <span class="badge pull-right">1</span>
+          -->
           <i class="icon-list"></i> Livestock
         </a>
       </li>
@@ -50,26 +51,26 @@
       </li>
       <li>
         <a href="{% url 'health.treatment_list' %}">
-          <span class="badge pull-right">24</span>
+          <span class="badge pull-right"></span>
           <i class="icon-th"></i> Treatment
         </a>
       </li>
       <li>
+        <a href="{% url 'animals.breeder_list' %}">
+          <span class="badge pull-right"></span>
+          <i class="icon-list"></i> Breeders
+        </a>
+      </li>
+      <li>
         <a href="{% url 'animals.sire_list' %}">
-          <span class="badge pull-right">1</span>
+          <span class="badge pull-right"></span>
           <i class="icon-list"></i> Sires
         </a>
       </li>
       <li>
         <a href="{% url 'animals.dam_list' %}">
-          <span class="badge pull-right">1</span>
+          <span class="badge pull-right"></span>
           <i class="icon-list"></i> Dams
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'animals.breeder_list' %}">
-          <span class="badge pull-right">1</span>
-          <i class="icon-list"></i> Breeders
         </a>
       </li>
       <li>

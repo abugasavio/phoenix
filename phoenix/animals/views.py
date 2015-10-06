@@ -450,6 +450,7 @@ class AnimalCRUDL(SmartCRUDL):
 
     class List(SmartListView):
         fields = ('id', 'name', 'color', 'breed', 'sex', 'sire', 'dam')
+        search_fields = ('name', 'breed__name', 'dam__name', 'sire__name')
 
         #def get_queryset(self, **kwargs):
             #queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
