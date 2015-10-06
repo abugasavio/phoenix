@@ -16,16 +16,11 @@ urlpatterns = [url(r'^$', DashboardView.as_view(), name='dashboard'),
                # Django Admin
                url(r'^grappelli/', include('grappelli.urls')),
                url(r'^admin/', include(admin.site.urls)),
-
                # User management
                url(r'^accounts/', include('allauth.urls')),
-               #url(r'^login/', LoginView.as_view(), name='user_login'),
                url(r'^users/', include('phoenix.users.urls', namespace="users")),
                # Third party URLs
                url(r'^select2/', include('django_select2.urls')),
-
-               url(r'^mars/$', TemplateView.as_view(template_name='pages/dashboard.html'), name="home"),
-
                ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
