@@ -232,7 +232,7 @@ man_pages = [
 texinfo_documents = [
     ('index', 'phoenix', u'phoenix Documentation',
      u"Savio Abuga", 'phoenix',
-     ''Book keepingg'', 'Miscellaneous'),
+     'Book keeping', 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

@@ -4,10 +4,10 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{{ block.super }}{% trans "Signup" %}{% endblock %}
 
-{%  block account_title %}<i class="icon-unlock"></i>Farmguru Signup {%  endblock %}
-{% block account_content %}
+{%  block title %}<i class="icon-unlock"></i>Farmguru Signup {%  endblock %}
+{% block content %}
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
