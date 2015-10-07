@@ -168,7 +168,8 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                # Your stuff: custom template context processors go here
+                # phoenix context processors
+                'phoenix.context_processors.get_farm',
             ],
         },
     },
@@ -227,7 +228,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'users:redirect'
-LOGIN_URL = '/accounts/login'
+LOGIN_URL = '/login/'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
