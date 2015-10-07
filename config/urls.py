@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from phoenix.dashboard.views import DashboardView
 from django.views.generic import RedirectView
+from phoenix.users.views import LoginView
 
 urlpatterns = [#url(r'^$', DashboardView.as_view(), name='dashboard'),
                url(r'^$', RedirectView.as_view(pattern_name='animals.animal_list'), name='dashboard'),
@@ -20,6 +21,7 @@ urlpatterns = [#url(r'^$', DashboardView.as_view(), name='dashboard'),
                # User management
                url(r'^accounts/', include('allauth.urls')),
                url(r'^users/', include('phoenix.users.urls', namespace="users")),
+               url(r'^login/$', LoginView.as_view(), name='user_login'),
                # Third party URLs
                url(r'^select2/', include('django_select2.urls')),
                ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

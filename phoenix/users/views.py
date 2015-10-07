@@ -7,6 +7,14 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from braces.views import LoginRequiredMixin
 
 from .models import User
+from allauth.account.views import LoginView as AllauthLoginView
+
+
+class LoginView(AllauthLoginView):
+    def dispatch(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -20,8 +28,10 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        return reverse("users:detail",
-                       kwargs={"username": self.request.user.username})
+        if self.request.user.name:
+            return reverse('dashboard')
+        else:
+            return reverse('users:update')
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
