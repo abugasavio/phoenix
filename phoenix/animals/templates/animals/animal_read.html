@@ -21,7 +21,9 @@
          {% if view.edit_button %}
             <a href="../../update/{{ object.id }}/" class="btn btn-primary">Edit</a>
          {%  endif %}
+        <!--
         <a href="{% url 'animals.animal_dashboard' object.id %}" class="btn btn-primary">Analytics</a>
+        -->
     </div>
 
 {% endblock read-buttons %}
