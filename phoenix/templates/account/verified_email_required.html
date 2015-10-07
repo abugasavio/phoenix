@@ -4,9 +4,8 @@
 {% load i18n %}
 
 {% block head_title %}{{ block.super }}{% trans "Verify Your E-mail Address" %}{% endblock %}
-
+{% block title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 {% block content %}
-{%  block title %}{% trans "Verify Your E-mail Address" %}{%  endblock %}
 
 {% url 'account_email' as email_url %}
 
