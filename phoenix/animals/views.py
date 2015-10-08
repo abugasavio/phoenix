@@ -49,7 +49,7 @@ class ServiceCRUDL(SmartCRUDL):
             return reverse('animals.animal_read', args=[self.request.GET.get('animal')])
 
     class Read(SmartReadView):
-        fields = ('id', 'method', 'sire', 'date', 'status', 'notes', 'created', 'modified')
+        fields = ('id', 'method', 'sire', 'date', 'notes', 'created_on', 'created_by')
 
         def get_context_data(self, **kwargs):  # pragma: no cover
             context_data = super(ServiceCRUDL.Read, self).get_context_data(**kwargs)
