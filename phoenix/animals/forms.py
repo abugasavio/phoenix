@@ -41,6 +41,22 @@ class ServiceForm(forms.ModelForm):
         fields = ('method', 'sire', 'date', 'notes')
 
 
+class SireForm(forms.ModelForm):
+    birth_date = forms.DateField(widget=DateTimePicker(options={'format': 'YYYY-MM-DD', 'pickTime': False}))
+
+    class Meta:
+        model = Sire
+        fields = ('name', 'breed', 'birth_date', 'breeder')
+
+
+class DamForm(forms.ModelForm):
+    birth_date = forms.DateField(widget=DateTimePicker(options={'format': 'YYYY-MM-DD', 'pickTime': False}))
+
+    class Meta:
+        model = Dam
+        fields = ('name', 'breed', 'birth_date', 'breeder')
+
+
 class PregnancyCheckForm(forms.ModelForm):
     date = forms.DateField(widget=DateTimePicker(options={'format': 'YYYY-MM-DD', 'pickTime': False}))
 

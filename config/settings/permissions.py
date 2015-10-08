@@ -22,13 +22,16 @@ GROUP_PERMISSIONS = {
                       'animals.milkproduction_read', 'animals.milkproduction_list',
                       'animals.lactationperiod_read', 'animals.lactationperiod_list',
                       'auth.user_list', 'auth.user_read', 'groups.group_read', 'groups.group_list',
-                      'finances.transaction_list', 'finances.transaction_read',
+                      # sires and dams
+                      'animals.sire_list', 'animals.dam_list',
                       ),
 
     GROUP_MANAGE_LIVESTOCK: ('animals.animal_create', 'animals.animal_update', 'animals.animal_delete', 'animals.animals_add_offspring',
                              'groups.group_create', 'groups.group_update', 'groups.group_delete',
                              'health.treatment_create', 'health.treatment_delete', 'health.treatment_update',
                              'notes.note_create', 'notes.note_update', 'notes.note_delete',
+                             # sire and dams
+                             'animals.sire_create', 'animals.sire_update', 'animals.dam_create', 'animals.dam_update',
                              ),
 
     GROUP_MANAGE_ACCOUNT: ('auth.user_create', 'auth.user_delete', 'auth.user_update',),
@@ -37,7 +40,5 @@ GROUP_PERMISSIONS = {
                               'animals.pregnancycheck_create', 'animals.pregnancycheck_update', 'animals.pregnancycheck_delete',
                               'animals.milkproduction_create', 'animals.milkproduction_update', 'animals.milkproduction_delete',
                               'animals.lactationperiod_create', 'animals.lactationperiod_update', 'animals.lactationperiod_delete',
-                              'finances.transaction_create', 'finances.transaction_update', 'finances.transaction_delete',
-                              'finances.category_create', 'finances.category_update', 'finances.category_update',
                               ),
 }

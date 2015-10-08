@@ -1,5 +1,4 @@
 import datetime
-from django.db.models import Q
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.template.context import RequestContext
@@ -10,7 +9,7 @@ from smartmin.views import SmartCRUDL, SmartView, SmartCreateView, SmartReadView
 from phoenix.records.views import NoteCRUDL
 from phoenix.health.views import TreatmentCRUDL
 from .models import Animal, Breed, Service, PregnancyCheck, MilkProduction, Color, Dam, Sire, Breeder
-from .forms import AnimalForm, ServiceForm, PregnancyCheckForm, MilkProductionForm
+from .forms import AnimalForm, ServiceForm, PregnancyCheckForm, MilkProductionForm, SireForm, DamForm
 
 
 class ServiceCRUDL(SmartCRUDL):
@@ -494,12 +493,18 @@ class SireCRUDL(SmartCRUDL):
 class DamCRUDL(SmartCRUDL):
     model = Dam
 
+    class Create(SmartCreateView):
+        form_class = DamForm
+
     class List(SmartListView):
         fields = ('id', 'name', 'code', 'breeder')
 
 
 class BreederCRUDL(SmartCRUDL):
     model = Breeder
+
+    class Create(SmartCreateView):
+        form_class = SireForm
 
     class List(SmartListView):
         fields = ('id', 'name')
