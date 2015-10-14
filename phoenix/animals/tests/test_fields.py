@@ -28,4 +28,4 @@ class AnimalFieldTestCase(TestCase):
         request = self.factory.get(reverse('django_select2_central_json'))
         # result looks like this: ('nil', False, [(4L, u'123', {})])
         results = BullField().get_results(request, term='s', page='1', context='')
-        self.assertEqual((2L, u'sire', {}), results[2][0])
+        self.assertEqual((self.sire.id, self.sire.name, {}), results[2][0])

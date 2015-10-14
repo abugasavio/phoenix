@@ -4,7 +4,7 @@ from django.test.client import RequestFactory
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Permission
 from model_mommy import mommy
-from phoenix.animals.models import Animal, PregnancyCheck, Service
+from phoenix.animals.models import Animal, PregnancyCheck, Service, Dam
 from phoenix.animals import views
 from phoenix.utils import test_utils
 
@@ -41,11 +41,12 @@ class AnimalCRUDLTestCase(TestCase):
         user.user_permissions.add(Permission.objects.get(codename='milkproduction_list'))
 
         dufour = mommy.make('animals.Animal', name='Dufour', birth_date=date.today(), sex=Animal.SEX_CHOICES.female)
+        dufour_dam = Dam.objects.get(animal=dufour)
         # add services
         mommy.make('animals.Service', animal=dufour, sire=self.bull, date=date.today(), notes="Dufour's service")
         # add pregnancycheck
         mommy.make('animals.PregnancyCheck', animal=dufour, result=PregnancyCheck.RESULT_CHOICES.pregnant)
-        mommy.make('animals.Animal', ear_tag='56', sire=self.bull, name='Dufour calf', sex=Animal.SEX_CHOICES.male)
+        mommy.make('animals.Animal', ear_tag='56', sire=self.bull, name='Dufour calf', sex=Animal.SEX_CHOICES.male, dam=dufour_dam)
         # add note
         mommy.make('records.Note', details='Dufour note', animals=[dufour])
         # add milk production

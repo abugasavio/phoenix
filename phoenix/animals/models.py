@@ -1,13 +1,12 @@
-import datetime
-import operator
-import time
 from django.db import models
-from django.db.models import Sum, Q
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from smartmin.models import SmartModel
 from model_utils import Choices
+from model_utils.models import TimeStampedModel
 from django_fsm import FSMField, transition
-from phoenix.utils.datetime_utils import week_range
 
 
 class Breed(SmartModel):
@@ -25,7 +24,7 @@ class Color(SmartModel):
         return self.name
 
 
-class Breeder(SmartModel):
+class Breeder(TimeStampedModel):
     name = models.CharField(max_length=30)
 
     def __unicode__(self):
@@ -36,6 +35,7 @@ class Sire(SmartModel):
     name = models.CharField(max_length=30, blank=False)
     code = models.CharField(max_length=10, blank=True)
     breed = models.ForeignKey(Breed, null=True, blank=True)
+    animal = models.ForeignKey('animals.Animal', null=True, blank=True, related_name='sire_animal')
     birth_date = models.DateField(null=True, blank=True)
     breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='sire_breeder')
 
@@ -47,6 +47,7 @@ class Dam(SmartModel):
     name = models.CharField(max_length=30)
     breed = models.ForeignKey(Breed, null=True, blank=True)
     code = models.CharField(max_length=10, blank=True)
+    animal = models.ForeignKey('animals.Animal', null=True, blank=True, related_name='dam_animal')
     birth_date = models.DateField(null=True, blank=True)
     breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='dam_breeder')
 
@@ -128,6 +129,18 @@ class Animal(SmartModel):
         return self.milkproduction.aggregate(Sum('amount'))['amount__sum']
 
 
+@receiver(post_save, sender=Animal)
+def add_sire_or_dam(sender, **kwargs):
+    animal = kwargs['instance']
+
+    if animal.sex == Animal.SEX_CHOICES.male:
+        Sire.objects.create(animal=animal, name=animal.name, breed=animal.breed, birth_date=animal.breed, created_by=animal.created_by,
+                            modified_by=animal.modified_by)
+    elif animal.sex == Animal.SEX_CHOICES.female:
+        Dam.objects.create(animal=animal, name=animal.name, breed=animal.breed, birth_date=animal.breed,created_by=animal.created_by,
+                           modified_by=animal.modified_by)
+
+
 class MilkProduction(SmartModel):
     # Choices
     TIME_CHOICES = Choices(('am', _('Morning')), ('pm', _('Evening')))
@@ -137,23 +150,6 @@ class MilkProduction(SmartModel):
     amount = models.DecimalField(max_digits=5, decimal_places=2)
     butterfat = models.DecimalField(max_digits=5, decimal_places=3)
     date = models.DateField()
-
-    @classmethod
-    def get_graph_data(cls, animal=None):
-        start_date = datetime.date.today()
-        dates = [start_date - datetime.timedelta(days=(x * 6)) for x in range(14)]
-
-        graph_data = {}
-        for date in dates:
-            try:
-                queryset = MilkProduction.objects.filter(date__range=week_range(date))
-                if animal:
-                    queryset = queryset.filter(animal=animal)
-                graph_data[time.mktime(date.timetuple()) * 1000] = int(queryset.aggregate(Sum('amount'))['amount__sum'])
-            except TypeError:
-                graph_data[time.mktime(date.timetuple()) * 1000] = 0
-
-        return sorted(graph_data.items(), key=operator.itemgetter(0))
 
 
 class Service(SmartModel):

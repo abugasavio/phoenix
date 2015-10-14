@@ -5,6 +5,7 @@ from django.template.context import RequestContext
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.views.generic import DetailView
+from django.db.models import Q
 from smartmin.views import SmartCRUDL, SmartView, SmartCreateView, SmartReadView, SmartUpdateView, SmartListView
 from phoenix.records.views import NoteCRUDL
 from phoenix.health.views import TreatmentCRUDL
@@ -451,15 +452,15 @@ class AnimalCRUDL(SmartCRUDL):
         fields = ('id', 'name', 'color', 'breed', 'sex', 'sire', 'dam')
         search_fields = ('name', 'breed__name', 'dam__name', 'sire__name')
 
-        #def get_queryset(self, **kwargs):
-            #queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
-            #if hasattr(self.request, 'offsprings') and self.request.offsprings:
-            #    queryset = queryset.filter(Q(sire=self.request.animal) | Q(dam=self.request.animal))
+        def get_queryset(self, **kwargs):
+            queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
+            if hasattr(self.request, 'offsprings') and self.request.offsprings:
+                queryset = queryset.filter(Q(sire__animal=self.request.animal) | Q(dam__animal=self.request.animal))
 
-            #if hasattr(self.request, 'group') and self.request.group:
-            #    queryset = self.request.group.get_animals_queryset()
+            if hasattr(self.request, 'group') and self.request.group:
+                queryset = self.request.group.get_animals_queryset()
 
-            #return queryset
+            return queryset
 
         def get_context_data(self, **kwargs):
             context_data = super(AnimalCRUDL.List, self).get_context_data(**kwargs)

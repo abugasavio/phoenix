@@ -26,11 +26,11 @@ class TestUserRedirectView(BaseUserTestCase):
         request.user = self.user
         # Attach the request to the view
         view.request = request
-        # Expect: '/users/testuser/', as that is the default username for
+        # Expect: '/users/~update/', as that is the default username for
         #   self.make_user()
         self.assertEqual(
             view.get_redirect_url(),
-            '/users/testuser/'
+            '/users/~update/'
         )
 
 

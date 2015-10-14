@@ -1,6 +1,10 @@
+import pytest
 from django.test import TestCase
 from model_mommy import mommy
-from phoenix.animals.models import Animal
+from phoenix.animals.models import Animal, Dam, Sire
+from phoenix.utils import test_utils
+
+pytestmark = pytest.mark.django_db
 
 
 class AnimalTestCase(TestCase):
@@ -25,3 +29,9 @@ class AnimalTestCase(TestCase):
         self.dam.disposed()
         self.dam.save()
         self.assertEqual('disposed', self.dam.state)
+
+    def test_creating_dam_or_sire(self):
+        user = test_utils.create_logged_in_user(self)
+        tim = Animal.objects.create(name='tim', ear_tag='123TIM', sex=Animal.SEX_CHOICES.male, created_by=user, modified_by=user)
+        sire_tim = Sire.objects.get(animal=tim)
+        self.assertEqual(sire_tim.name, 'tim')
