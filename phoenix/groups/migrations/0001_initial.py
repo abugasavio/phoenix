@@ -2,14 +2,12 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('animals', '0001_initial'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -25,14 +23,9 @@ class Migration(migrations.Migration):
                 ('start_birth_date', models.DateField(null=True, blank=True)),
                 ('end_birth_date', models.DateField(null=True, blank=True)),
                 ('breed', models.ForeignKey(blank=True, to='animals.Breed', null=True)),
-                ('created_by', models.ForeignKey(related_name='groups_group_creations', to=settings.AUTH_USER_MODEL, help_text=b'The user which originally created this item')),
-                ('dam', models.ForeignKey(related_name='dam_groups', blank=True, to='animals.Animal', null=True)),
-                ('modified_by', models.ForeignKey(related_name='groups_group_modifications', to=settings.AUTH_USER_MODEL, help_text=b'The user which last modified this item')),
-                ('sire', models.ForeignKey(related_name='sire_groups', blank=True, to='animals.Animal', null=True)),
             ],
             options={
                 'abstract': False,
             },
-            bases=(models.Model,),
         ),
     ]

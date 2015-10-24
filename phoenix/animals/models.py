@@ -24,7 +24,7 @@ class Color(SmartModel):
         return self.name
 
 
-class Breeder(TimeStampedModel):
+class Breeder(SmartModel):
     name = models.CharField(max_length=30)
 
     def __unicode__(self):

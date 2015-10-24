@@ -17,6 +17,7 @@ ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('phoenix')
 
 env = environ.Env()
+environ.Env.read_env()  # reading .env file
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -38,12 +39,14 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
     'guardian',
+    'smartmin',
     'bootstrap3',
     'django_select2',
     'bootstrap3_datetime',
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'opbeat.contrib.django',  # opbeat tracking
 )
 
 # Apps specific for this project go here.
@@ -65,6 +68,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # ------------------------------------------------------------------------------
 MIDDLEWARE_CLASSES = (
     # Make sure djangosecure.middleware.SecurityMiddleware is listed first
+    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -227,8 +231,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/login/'
+ACCOUNT_SIGNUP_FORM_CLASS = 'phoenix.users.forms.SignUpForm'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
@@ -278,3 +283,10 @@ ANONYMOUS_USER_ID = -1
 
 # Select2 settings
 AUTO_RENDER_SELECT2_STATICS = False
+
+# opbeat
+OPBEAT = {
+    'ORGANIZATION_ID': '70117275cda8437a8d7c807e1612c540',
+    'APP_ID': 'f47985140b',
+    'SECRET_TOKEN': '2e51804a0f63b4c2252c905da9fe08feb4f6e0ae',
+}

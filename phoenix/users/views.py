@@ -24,19 +24,9 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     slug_url_kwarg = "username"
 
 
-class UserRedirectView(LoginRequiredMixin, RedirectView):
-    permanent = False
-
-    def get_redirect_url(self):
-        if self.request.user.name:
-            return reverse('dashboard')
-        else:
-            return reverse('users:update')
-
-
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
-    fields = ['name', ]
+    fields = ['farm', ]
 
     # we already imported User in the view code above, remember?
     model = User

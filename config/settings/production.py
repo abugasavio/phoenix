@@ -12,7 +12,7 @@ from __future__ import absolute_import, unicode_literals
 
 from boto.s3.connection import OrdinaryCallingFormat
 from django.utils import six
-
+import dj_database_url
 
 from .common import *  # noqa
 
@@ -138,6 +138,4 @@ CACHES = {
 
 
 # Your production stuff: Below this line define 3rd party library settings
-# smartmin
 
-INSTALLED_APPS += ('smartmin', )

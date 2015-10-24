@@ -2,15 +2,12 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('animals', '0001_initial'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('groups', '0001_initial'),
     ]
 
     operations = [
@@ -20,11 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('file', models.FileField(max_length=255, upload_to=b'documents')),
                 ('deleted', models.BooleanField(default=False)),
-                ('animal', models.ForeignKey(related_name='documents', to='animals.Animal')),
             ],
-            options={
-            },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Note',
@@ -37,13 +30,9 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(null=True, upload_to=b'notes', blank=True)),
                 ('details', models.TextField(blank=True)),
                 ('animals', models.ManyToManyField(related_name='notes', to='animals.Animal')),
-                ('created_by', models.ForeignKey(related_name='records_note_creations', to=settings.AUTH_USER_MODEL, help_text=b'The user which originally created this item')),
-                ('group', models.ForeignKey(to='groups.Group', null=True)),
-                ('modified_by', models.ForeignKey(related_name='records_note_modifications', to=settings.AUTH_USER_MODEL, help_text=b'The user which last modified this item')),
             ],
             options={
                 'abstract': False,
             },
-            bases=(models.Model,),
         ),
     ]
