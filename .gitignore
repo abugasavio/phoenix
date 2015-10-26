@@ -51,6 +51,3 @@ node_modules/
 
 # Compass
 .sass-cache
-
-# virtual environments
-.env
