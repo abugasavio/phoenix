@@ -5,7 +5,6 @@ from test_plus.test import TestCase
 from ..views import UserUpdateView
 
 
-
 class BaseUserTestCase(TestCase):
 
     def setUp(self):
