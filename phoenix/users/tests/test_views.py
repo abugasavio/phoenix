@@ -2,10 +2,8 @@ from django.test import RequestFactory
 
 from test_plus.test import TestCase
 
-from ..views import (
-    UserRedirectView,
-    UserUpdateView
-)
+from ..views import UserUpdateView
+
 
 
 class BaseUserTestCase(TestCase):
@@ -13,25 +11,6 @@ class BaseUserTestCase(TestCase):
     def setUp(self):
         self.user = self.make_user()
         self.factory = RequestFactory()
-
-
-class TestUserRedirectView(BaseUserTestCase):
-
-    def test_get_redirect_url(self):
-        # Instantiate the view directly. Never do this outside a test!
-        view = UserRedirectView()
-        # Generate a fake request
-        request = self.factory.get('/fake-url')
-        # Attach the user to the request
-        request.user = self.user
-        # Attach the request to the view
-        view.request = request
-        # Expect: '/users/~update/', as that is the default username for
-        #   self.make_user()
-        self.assertEqual(
-            view.get_redirect_url(),
-            '/users/~update/'
-        )
 
 
 class TestUserUpdateView(BaseUserTestCase):
