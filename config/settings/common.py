@@ -231,7 +231,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/animals/animal/'
 LOGIN_URL = '/login/'
 ACCOUNT_SIGNUP_FORM_CLASS = 'phoenix.users.forms.SignUpForm'
 
@@ -283,10 +283,3 @@ ANONYMOUS_USER_ID = -1
 
 # Select2 settings
 AUTO_RENDER_SELECT2_STATICS = False
-
-# opbeat
-OPBEAT = {
-    'ORGANIZATION_ID': '70117275cda8437a8d7c807e1612c540',
-    'APP_ID': 'f47985140b',
-    'SECRET_TOKEN': '2e51804a0f63b4c2252c905da9fe08feb4f6e0ae',
-}
