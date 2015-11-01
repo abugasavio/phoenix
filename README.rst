@@ -1,9 +1,6 @@
 phoenix
 ==============================
-Book keeping
-
-
-LICENSE: BSD
+Everyone has a problem with his name on it.
 
 Settings
 ------------

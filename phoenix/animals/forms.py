@@ -10,7 +10,7 @@ from .fields import BullField, CowField, ColorField, BreederField
 class AnimalForm(forms.ModelForm):
     sex = Select2ChoiceField(choices=Animal.SEX_CHOICES, widget=Select2Widget(select2_options={'minimumInputLength': 0}))
     color = ColorField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}))
-    sire = BullField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0, 'placeholder':' revter', 'width': '40px'}),
+    sire = BullField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0, 'width': '40px'}),
                      attrs={'add_button':mark_safe('<button id="comment-button" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Category</button>')})
     dam = CowField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}), help_text='')
     breeder = BreederField(required=False, widget=AutoHeavySelect2Widget(select2_options={'minimumInputLength': 0}))

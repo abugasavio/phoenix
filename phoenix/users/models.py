@@ -12,7 +12,7 @@ class User(AbstractUser):
     farm = models.CharField(blank=True, max_length=255)
 
     def __str__(self):
-        return self.username
+        return self.farm
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})

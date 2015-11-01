@@ -100,6 +100,7 @@ class Animal(SmartModel):
     weaning_weight = models.IntegerField(null=True, blank=True)
     yearling_date = models.DateField(null=True, blank=True)
     yearling_weight = models.IntegerField(null=True, blank=True)
+    farm = models.ForeignKey('users.User', null=True, blank=True)
 
     def __unicode__(self):
         return '%s-%s' % (self.ear_tag, self.name)
@@ -127,18 +128,6 @@ class Animal(SmartModel):
     @property
     def all_time_production(self):
         return self.milkproduction.aggregate(Sum('amount'))['amount__sum']
-
-
-@receiver(post_save, sender=Animal)
-def add_sire_or_dam(sender, **kwargs):
-    animal = kwargs['instance']
-
-    if animal.sex == Animal.SEX_CHOICES.male:
-        Sire.objects.create(animal=animal, name=animal.name, breed=animal.breed, birth_date=animal.breed, created_by=animal.created_by,
-                            modified_by=animal.modified_by)
-    elif animal.sex == Animal.SEX_CHOICES.female:
-        Dam.objects.create(animal=animal, name=animal.name, breed=animal.breed, birth_date=animal.breed,created_by=animal.created_by,
-                           modified_by=animal.modified_by)
 
 
 class MilkProduction(SmartModel):

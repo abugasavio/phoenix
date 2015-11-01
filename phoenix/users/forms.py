@@ -20,8 +20,6 @@ class SignUpForm(forms.Form):
         farm = request.POST.get('farm')
         # create user
         user = User.objects.create(farm=farm)
-        # create this farm as breeder
-        Breeder.objects.create(name=farm, created_by=user, modified_by=user)
 
         # add user to all groups
         for group in settings.GROUP_PERMISSIONS.keys():
