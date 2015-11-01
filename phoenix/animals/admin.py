@@ -26,6 +26,7 @@ class BreederAdmin(admin.ModelAdmin):
 class SireAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Dam)
 class DamAdmin(admin.ModelAdmin):
     pass

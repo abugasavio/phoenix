@@ -70,18 +70,4 @@ class MilkProductionForm(forms.ModelForm):
 
     class Meta:
         model = MilkProduction
-        fields = ('date', 'time', 'amount', 'butterfat',)
-
-
-class SireForm(forms.ModelForm):
-
-    class Meta:
-        model = Sire
-        fields = ('name', 'code', 'breed', 'birth_date', 'breeder')
-
-
-class DamForm(forms.ModelForm):
-
-    class Meta:
-        model = Dam
-        fields = ('name', 'code', 'breed', 'birth_date', 'breeder')
+        fields = ( 'animal', 'date', 'time', 'amount', 'butterfat',)

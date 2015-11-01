@@ -255,10 +255,10 @@ class ColorCRUDL(SmartCRUDL):
 
 class MilkProductionCRUDL(SmartCRUDL):
     model = MilkProduction
+    actions = ('create', 'list')
 
     class Create(SmartCreateView):
         form_class = MilkProductionForm
-        fields = ('date', 'time', 'amount', 'butterfat')
 
         def customize_form_field(self, name, field):
             field = super(MilkProductionCRUDL.Create, self).customize_form_field(name, field)
@@ -276,7 +276,7 @@ class MilkProductionCRUDL(SmartCRUDL):
             return reverse('animals.animal_read', args=[self.request.GET.get('animal', None)])
 
     class List(SmartListView):
-        fields = ('id', 'time', 'amount', 'butterfat_ratio')
+        fields = ('id', 'animal', 'time', 'amount', 'butterfat_ratio')
         default_order = '-id'
 
         def get_time(self, obj):
@@ -287,6 +287,50 @@ class MilkProductionCRUDL(SmartCRUDL):
             if hasattr(self.request, 'animal'):
                 context_data['animal'] = self.request.animal
             return context_data
+
+
+class AnimalMilkProductionCRUDL(MilkProductionCRUDL):
+    actions = ('animal_create', 'animal_list')
+
+    class AnimalCreate(MilkProductionCRUDL.Create):
+        form_class = MilkProductionForm
+        fields = ('date', 'time', 'amount', 'butterfat')
+
+        def customize_form_field(self, name, field):
+            field = super(AnimalMilkProductionCRUDL.Create, self).customize_form_field(name, field)
+            if name == 'date':
+                field.initial = datetime.date.today()
+            return field
+
+        def pre_save(self, obj):
+            obj = super(AnimalMilkProductionCRUDL.Create, self).pre_save(obj)
+            animal_id = self.request.GET.get('animal')
+            obj.animal = Animal.objects.get(id=animal_id)
+            return obj
+
+        def get_success_url(self):
+            return reverse('animals.animal_read', args=[self.request.GET.get('animal', None)])
+
+        @classmethod
+        def derive_url_pattern(cls, path, action):
+            return r'^{}/animal/create/$'.format(path, action)
+
+    class AnimalList(MilkProductionCRUDL.List):
+        fields = ('id', 'time', 'amount', 'butterfat_ratio')
+        default_order = '-id'
+
+        def get_time(self, obj):
+            return MilkProduction.TIME_CHOICES[obj.time]
+
+        def get_context_data(self, **kwargs):
+            context_data = super(AnimalMilkProductionCRUDL.List, self).get_context_data(**kwargs)
+            if hasattr(self.request, 'animal'):
+                context_data['animal'] = self.request.animal
+            return context_data
+
+        @classmethod
+        def derive_url_pattern(cls, path, action):
+            return r'^{}/animal/$'.format(path)
 
 
 class AnimalCRUDL(SmartCRUDL):
@@ -438,9 +482,9 @@ class AnimalCRUDL(SmartCRUDL):
 
             context_data['animal_documents'] = render_to_string('records/animaldocument_form.html', {'animal': self.request.animal}, RequestContext(self.request))
 
-            milkproduction_response = MilkProductionCRUDL().view_for_action('list').as_view()(self.request)
+            milkproduction_response = AnimalMilkProductionCRUDL().view_for_action('animal_list').as_view()(self.request)
             if hasattr(milkproduction_response, 'context_data'):
-                context_data['milkproduction'] = render_to_string('animals/milkproduction_related_list.html', milkproduction_response.context_data, RequestContext(self.request))
+                context_data['milkproduction'] = render_to_string('animals/animal_milkproduction_related_list.html', milkproduction_response.context_data, RequestContext(self.request))
 
             self.request.offsprings = True
             offspring_response = AnimalCRUDL().view_for_action('list').as_view()(self.request)
