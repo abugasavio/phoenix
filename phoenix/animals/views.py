@@ -300,7 +300,11 @@ class AnimalCRUDL(SmartCRUDL):
             super(AnimalCRUDL.FormMixin, self).__init__(**kwargs)
 
     class Create(FormMixin, SmartCreateView):
-        pass
+
+        def pre_save(self, obj):
+            obj = super(AnimalCRUDL.Create, self).pre_save(obj)
+            obj.farm = self.request.user
+            return obj
 
     class Dashboard(SmartView, DetailView):
 
@@ -454,6 +458,7 @@ class AnimalCRUDL(SmartCRUDL):
 
         def get_queryset(self, **kwargs):
             queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
+            queryset = queryset.filter(farm=self.request.user)
             if hasattr(self.request, 'offsprings') and self.request.offsprings:
                 queryset = queryset.filter(Q(sire__animal=self.request.animal) | Q(dam__animal=self.request.animal))
 
