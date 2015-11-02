@@ -35,7 +35,6 @@ class Sire(SmartModel):
     name = models.CharField(max_length=30, blank=False)
     code = models.CharField(max_length=10, blank=True)
     breed = models.ForeignKey(Breed, null=True, blank=True)
-    animal = models.ForeignKey('animals.Animal', null=True, blank=True, related_name='sire_animal')
     birth_date = models.DateField(null=True, blank=True)
     breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='sire_breeder')
 
@@ -47,7 +46,6 @@ class Dam(SmartModel):
     name = models.CharField(max_length=30)
     breed = models.ForeignKey(Breed, null=True, blank=True)
     code = models.CharField(max_length=10, blank=True)
-    animal = models.ForeignKey('animals.Animal', null=True, blank=True, related_name='dam_animal')
     birth_date = models.DateField(null=True, blank=True)
     breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='dam_breeder')
 
@@ -137,7 +135,7 @@ class MilkProduction(SmartModel):
     animal = models.ForeignKey(Animal, null=False, blank=False, related_name='milkproduction')
     time = models.CharField(choices=TIME_CHOICES, max_length=10, null=False, blank=False)
     amount = models.DecimalField(max_digits=5, decimal_places=2)
-    butterfat = models.DecimalField(max_digits=5, decimal_places=3)
+    butterfat = models.DecimalField(max_digits=5, decimal_places=3, null=True)
     date = models.DateField()
 
 

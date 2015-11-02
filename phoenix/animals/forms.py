@@ -66,6 +66,7 @@ class PregnancyCheckForm(forms.ModelForm):
 
 
 class MilkProductionForm(forms.ModelForm):
+    butterfat = forms.CharField(required=False)
     date = forms.DateField(widget=DateTimePicker(options={'format': 'YYYY-MM-DD', 'pickTime': False}))
 
     class Meta:

@@ -266,14 +266,8 @@ class MilkProductionCRUDL(SmartCRUDL):
                 field.initial = datetime.date.today()
             return field
 
-        def pre_save(self, obj):
-            obj = super(MilkProductionCRUDL.Create, self).pre_save(obj)
-            animal_id = self.request.GET.get('animal')
-            obj.animal = Animal.objects.get(id=animal_id)
-            return obj
-
         def get_success_url(self):
-            return reverse('animals.animal_read', args=[self.request.GET.get('animal', None)])
+            return reverse('animals.milkproduction_create')
 
     class List(SmartListView):
         fields = ('id', 'animal', 'time', 'amount', 'butterfat_ratio')
