@@ -23,9 +23,9 @@ GROUP_PERMISSIONS = {
                       'animals.lactationperiod_read', 'animals.lactationperiod_list',
                       'auth.user_list', 'auth.user_read', 'groups.group_read', 'groups.group_list',
                       # sires and dams
-                      'animals.sire_list', 'animals.dam_list',
+                      'animals.sire_list', 'animals.dam_list', 'animals.sire_read', 'animals.dam_read',
                       # breeder
-                      'animals.breeder_list',
+                      'animals.breeder_list', 'animals.breeder_read',
                       ),
 
     GROUP_MANAGE_LIVESTOCK: ('animals.animal_create', 'animals.animal_update', 'animals.animal_delete', 'animals.animals_add_offspring',
