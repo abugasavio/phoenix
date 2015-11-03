@@ -419,6 +419,11 @@ class AnimalCRUDL(SmartCRUDL):
             #obj.dam = Animal.objects.get(id=animal_id)
             #eturn obj
 
+        def pre_save(self, obj):
+            obj = super(AnimalCRUDL.AddOffspring, self).pre_save(obj)
+            obj.farm = self.request.user
+            return obj
+
         def post_save(self, obj):
             obj.lactating()
             obj.save()
@@ -491,8 +496,8 @@ class AnimalCRUDL(SmartCRUDL):
         pass
 
     class List(SmartListView):
-        fields = ('id', 'name', 'color', 'breed', 'sex', 'sire', 'dam')
-        search_fields = ('name', 'breed__name', 'dam__name', 'sire__name')
+        fields = ('id', 'ear_tag', 'name', 'breed', 'sex', 'sire', 'dam')
+        search_fields = ('name', 'breed__name', 'dam__name', 'sire__name', 'ear_tag')
 
         def get_queryset(self, **kwargs):
             queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
