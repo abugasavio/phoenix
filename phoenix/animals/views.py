@@ -498,7 +498,7 @@ class AnimalCRUDL(SmartCRUDL):
             queryset = super(AnimalCRUDL.List, self).get_queryset(**kwargs)
             queryset = queryset.filter(farm=self.request.user)
             if hasattr(self.request, 'offsprings') and self.request.offsprings:
-                queryset = queryset.filter(Q(sire__animal=self.request.animal) | Q(dam__animal=self.request.animal))
+                queryset = queryset.filter(Q(dam__animal=self.request.animal))
 
             if hasattr(self.request, 'group') and self.request.group:
                 queryset = self.request.group.get_animals_queryset()
