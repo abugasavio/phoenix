@@ -47,6 +47,7 @@ class Dam(SmartModel):
     breed = models.ForeignKey(Breed, null=True, blank=True)
     code = models.CharField(max_length=10, blank=True)
     birth_date = models.DateField(null=True, blank=True)
+    animal = models.ForeignKey('animals.Animal', null=True, blank=True, related_name='dam_animal')
     breeder = models.ForeignKey(Breeder, null=True, blank=True, related_name='dam_breeder')
 
     def __unicode__(self):
@@ -126,6 +127,15 @@ class Animal(SmartModel):
     @property
     def all_time_production(self):
         return self.milkproduction.aggregate(Sum('amount'))['amount__sum']
+
+
+@receiver(post_save, sender=Animal)
+def add_dam(sender, **kwargs):
+    animal = kwargs['instance']
+
+    if animal.sex == Animal.SEX_CHOICES.female:
+        Dam.objects.create(animal=animal, name=animal.name, breed=animal.breed, birth_date=animal.breed, created_by=animal.created_by,
+                           modified_by=animal.modified_by)
 
 
 class MilkProduction(SmartModel):
