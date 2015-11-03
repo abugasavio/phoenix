@@ -3,7 +3,6 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 from .models import User
-from phoenix.animals.models import Breeder
 
 
 class SignUpForm(forms.Form):
@@ -19,7 +18,8 @@ class SignUpForm(forms.Form):
     def signup(self, request, user):
         farm = request.POST.get('farm')
         # create user
-        user = User.objects.create(farm=farm)
+        user.farm = farm
+        user.save()
 
         # add user to all groups
         for group in settings.GROUP_PERMISSIONS.keys():

@@ -24,6 +24,8 @@ GROUP_PERMISSIONS = {
                       'auth.user_list', 'auth.user_read', 'groups.group_read', 'groups.group_list',
                       # sires and dams
                       'animals.sire_list', 'animals.dam_list',
+                      # breeder
+                      'animals.breeder_list',
                       ),
 
     GROUP_MANAGE_LIVESTOCK: ('animals.animal_create', 'animals.animal_update', 'animals.animal_delete', 'animals.animals_add_offspring',
@@ -32,6 +34,8 @@ GROUP_PERMISSIONS = {
                              'notes.note_create', 'notes.note_update', 'notes.note_delete',
                              # sire and dams
                              'animals.sire_create', 'animals.sire_update', 'animals.dam_create', 'animals.dam_update',
+                             # breeder
+                             'animals.breeder_create', 'animals.breeder_update',
                              ),
 
     GROUP_MANAGE_ACCOUNT: ('auth.user_create', 'auth.user_delete', 'auth.user_update',),
