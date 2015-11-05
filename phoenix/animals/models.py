@@ -134,7 +134,7 @@ def add_dam(sender, **kwargs):
     animal = kwargs['instance']
 
     if animal.sex == Animal.SEX_CHOICES.female:
-        Dam.objects.create(animal=animal, name=animal.name, breed=animal.breed, birth_date=animal.breed, created_by=animal.created_by,
+        Dam.objects.create(animal=animal, name=animal.name, breed=animal.breed, birth_date=animal.birth_date, created_by=animal.created_by,
                            modified_by=animal.modified_by)
 
 
